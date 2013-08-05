@@ -563,7 +563,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
     }
 }
-#pragma mark - Selection Programmatically Without Notification
 
 - (void)setSliceSelectedAtIndex:(NSInteger)index
 {
@@ -588,6 +587,24 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         layer.position = CGPointMake(0, 0);
         layer.isSelected = NO;
     }
+}
+
+#pragma mark - Selection Programmatically Without Notification
+
+- (void)selectSliceAtIndex:(NSInteger)index
+{
+    if (_selectedSliceIndex != -1) {
+        [self deselectSliceAtIndex:_selectedSliceIndex];
+    }
+    
+    _selectedSliceIndex = index;
+    [self setSliceSelectedAtIndex:index];
+}
+
+- (void)deselectSliceAtIndex:(NSInteger)index
+{
+    _selectedSliceIndex = -1;
+    [self setSliceDeselectedAtIndex:index];
 }
 
 #pragma mark - Pie Layer Creation Method

@@ -65,7 +65,7 @@
 - (void)reloadData;
 - (void)setPieBackgroundColor:(UIColor *)color;
 
-- (void)setSliceSelectedAtIndex:(NSInteger)index;
-- (void)setSliceDeselectedAtIndex:(NSInteger)index;
+- (void)selectSliceAtIndex:(NSInteger)index;
+- (void)deselectSliceAtIndex:(NSInteger)index;
 
 @end;
