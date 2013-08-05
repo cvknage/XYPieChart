@@ -89,6 +89,7 @@
 
 @implementation XYPieChart
 {
+    void(^_preSelectSclceSliceAtIndexBlock)();
     NSInteger _selectedSliceIndex;
     //pie view, contains all slices
     UIView  *_pieView;
@@ -402,6 +403,10 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         
         [CATransaction setDisableActions:NO];
         [CATransaction commit];
+        
+        if (_preSelectSclceSliceAtIndexBlock) {
+            _preSelectSclceSliceAtIndexBlock();
+        }
     }
 }
 
@@ -605,6 +610,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 {
     _selectedSliceIndex = -1;
     [self setSliceDeselectedAtIndex:index];
+}
+
+- (void)setPreSelectedSliceIndex:(NSInteger)preSelectedSliceIndex
+{
+    _preSelectedSliceIndex = preSelectedSliceIndex;
+    
+    __block XYPieChart *blockSelf = self;
+    _preSelectSclceSliceAtIndexBlock =^{
+        [blockSelf selectSliceAtIndex:preSelectedSliceIndex];
+    };
 }
 
 #pragma mark - Pie Layer Creation Method

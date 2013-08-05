@@ -49,18 +49,20 @@
 @interface XYPieChart : UIView
 @property(nonatomic, unsafe_unretained) id<XYPieChartDataSource> dataSource;
 @property(nonatomic, unsafe_unretained) id<XYPieChartDelegate> delegate;
-@property(nonatomic, assign) CGFloat startPieAngle;
-@property(nonatomic, assign) CGFloat animationSpeed;
-@property(nonatomic, assign) CGPoint pieCenter;
-@property(nonatomic, assign) CGFloat pieRadius;
-@property(nonatomic, assign) BOOL    showLabel;
-@property(nonatomic, strong) UIFont  *labelFont;
-@property(nonatomic, strong) UIColor *labelColor;
-@property(nonatomic, strong) UIColor *labelShadowColor;
-@property(nonatomic, assign) CGFloat labelRadius;
-@property(nonatomic, assign) CGFloat selectedSliceStroke;
-@property(nonatomic, assign) CGFloat selectedSliceOffsetRadius;
-@property(nonatomic, assign) BOOL    showPercentage;
+@property(nonatomic, assign) CGFloat    startPieAngle;
+@property(nonatomic, assign) CGFloat    animationSpeed;
+@property(nonatomic, assign) CGPoint    pieCenter;
+@property(nonatomic, assign) CGFloat    pieRadius;
+@property(nonatomic, assign) BOOL       showLabel;
+@property(nonatomic, strong) UIFont     *labelFont;
+@property(nonatomic, strong) UIColor    *labelColor;
+@property(nonatomic, strong) UIColor    *labelShadowColor;
+@property(nonatomic, assign) CGFloat    labelRadius;
+@property(nonatomic, assign) CGFloat    selectedSliceStroke;
+@property(nonatomic, assign) CGFloat    selectedSliceOffsetRadius;
+@property(nonatomic, assign) BOOL       showPercentage;
+@property(nonatomic, assign) NSInteger  preSelectedSliceIndex;
+
 - (id)initWithFrame:(CGRect)frame Center:(CGPoint)center Radius:(CGFloat)radius;
 - (void)reloadData;
 - (void)setPieBackgroundColor:(UIColor *)color;
