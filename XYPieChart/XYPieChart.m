@@ -204,6 +204,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [_pieView setBackgroundColor:color];
 }
 
+- (void)setPreSelectedSliceIndex:(NSInteger)preSelectedSliceIndex
+{
+    _preSelectedSliceIndex = preSelectedSliceIndex;
+    
+    __block XYPieChart *blockSelf = self;
+    _preSelectSclceSliceAtIndexBlock =^{
+        [blockSelf selectSliceAtIndex:preSelectedSliceIndex];
+    };
+}
+
 #pragma mark - manage settings
 
 - (void)setShowPercentage:(BOOL)showPercentage
@@ -610,16 +620,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 {
     _selectedSliceIndex = -1;
     [self setSliceDeselectedAtIndex:index];
-}
-
-- (void)setPreSelectedSliceIndex:(NSInteger)preSelectedSliceIndex
-{
-    _preSelectedSliceIndex = preSelectedSliceIndex;
-    
-    __block XYPieChart *blockSelf = self;
-    _preSelectSclceSliceAtIndexBlock =^{
-        [blockSelf selectSliceAtIndex:preSelectedSliceIndex];
-    };
 }
 
 #pragma mark - Pie Layer Creation Method
