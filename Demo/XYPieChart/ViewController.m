@@ -11,16 +11,6 @@
 
 @implementation ViewController
 
-@synthesize pieChartRight = _pieChart;
-@synthesize pieChartLeft = _pieChartCopy;
-@synthesize percentageLabel = _percentageLabel;
-@synthesize selectedSliceLabel = _selectedSlice;
-@synthesize numOfSlices = _numOfSlices;
-@synthesize indexOfSlices = _indexOfSlices;
-@synthesize downArrow = _downArrow;
-@synthesize slices = _slices;
-@synthesize sliceColors = _sliceColors;
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
