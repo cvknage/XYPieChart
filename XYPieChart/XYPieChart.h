@@ -50,6 +50,7 @@
 @property(nonatomic, unsafe_unretained) id<XYPieChartDataSource> dataSource;
 @property(nonatomic, unsafe_unretained) id<XYPieChartDelegate> delegate;
 @property(nonatomic, assign) CGFloat    startPieAngle;
+@property(nonatomic, assign) BOOL       animated;
 @property(nonatomic, assign) CGFloat    animationSpeed;
 @property(nonatomic, assign) CGPoint    pieCenter;
 @property(nonatomic, assign) CGFloat    pieRadius;
