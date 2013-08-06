@@ -613,6 +613,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)setSliceSelectedAtIndex:(NSInteger)index
 {
+    _preSelectSclceSliceAtIndexBlock = nil;
+    
     if(_selectedSliceOffsetRadius <= 0)
         return;
     SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:index];
@@ -634,6 +636,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)setSliceDeselectedAtIndex:(NSInteger)index
 {
+    _preSelectSclceSliceAtIndexBlock = nil;
+    
     if(_selectedSliceOffsetRadius <= 0)
         return;
     SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:index];
