@@ -29,6 +29,41 @@
 #import "XYPieChart.h"
 #import <QuartzCore/QuartzCore.h>
 
+
+@interface MaskView : UIView
+@end
+
+@implementation MaskView
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    size_t gradLocationsNum = 2;
+    CGFloat gradLocations[2] = {0.0f, 1.0f};
+    CGFloat gradColors[8] = {0.7f, 0.7f, 0.7f, 0.7f, 1.0f, 1.1f, 1.0f, 1.0f};
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, gradColors, gradLocations, gradLocationsNum);
+    CGColorSpaceRelease(colorSpace);
+    
+    CGPoint gradCenter= CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    float gradRadius = MIN(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f) ;
+    
+    CGContextDrawRadialGradient (context, gradient, gradCenter, 0, gradCenter, gradRadius, kCGGradientDrawsAfterEndLocation);
+    
+    CGGradientRelease(gradient);
+}
+@end
+
+
 @interface SliceLayer : CAShapeLayer
 @property (nonatomic, assign) CGFloat   value;
 @property (nonatomic, assign) CGFloat   percentage;
@@ -420,6 +455,15 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
         
         startToAngle = endToAngle;
+        
+        { // Add Gradient
+            MaskView *maskView = [[MaskView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _pieView.bounds.size.width, _pieView.bounds.size.height)];
+            UIImage *maskingImage = [self imageFromView:maskView];
+            CALayer *maskingLayer = [CALayer layer];
+            maskingLayer.frame = CGRectMake(0.0f, 0.0f, _pieView.bounds.size.width, _pieView.bounds.size.height);
+            [maskingLayer setContents:(id)[maskingImage CGImage]];
+            [layer setMask:maskingLayer];
+        }
     }
     
     if (_animated) {
@@ -709,6 +753,18 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [CATransaction setDisableActions:NO];
     [pieLayer addSublayer:textLayer];
     return pieLayer;
+}
+
+- (UIImage *)imageFromView:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 - (void)updateLabelForLayer:(SliceLayer *)pieLayer value:(CGFloat)value
