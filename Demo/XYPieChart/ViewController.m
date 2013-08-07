@@ -49,8 +49,8 @@
     [self.pieChartRight setLabelColor:[UIColor blackColor]];
     [self.pieChartRight setPreSelectedSliceIndex:0];
     [self.pieChartRight setSelectedSliceOffsetRadius:20.f];
-    [self.pieChartRight setShowLabel:NO];
-    [self.pieChartRight setAnimated:NO];
+    [self.pieChartRight setShowLabel:YES];
+    [self.pieChartRight setAnimated:YES];
 
     [self.percentageLabel.layer setCornerRadius:90];
     
@@ -215,6 +215,7 @@
 - (void)pieChart:(XYPieChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index
 {
     NSLog(@"did deselect slice at index %d",index);
+    self.selectedSliceLabel.text = @"$0";
 }
 - (void)pieChart:(XYPieChart *)pieChart didSelectSliceAtIndex:(NSUInteger)index
 {
