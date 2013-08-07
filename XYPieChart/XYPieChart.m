@@ -427,6 +427,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
         
         [layer setFillColor:color.CGColor];
+        
+        { // Add Gradient
+            MaskView *maskView = [[MaskView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _pieView.bounds.size.width, _pieView.bounds.size.height)];
+            UIImage *maskingImage = [self imageFromView:maskView];
+            CALayer *maskingLayer = [CALayer layer];
+            maskingLayer.frame = CGRectMake(0.0f, 0.0f, _pieView.bounds.size.width, _pieView.bounds.size.height);
+            [maskingLayer setContents:(id)[maskingImage CGImage]];
+            [layer setMask:maskingLayer];
+        }
+        
         if([_dataSource respondsToSelector:@selector(pieChart:textForSliceAtIndex:)])
         {
             layer.text = [_dataSource pieChart:self textForSliceAtIndex:index];
@@ -455,15 +465,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
         
         startToAngle = endToAngle;
-        
-        { // Add Gradient
-            MaskView *maskView = [[MaskView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _pieView.bounds.size.width, _pieView.bounds.size.height)];
-            UIImage *maskingImage = [self imageFromView:maskView];
-            CALayer *maskingLayer = [CALayer layer];
-            maskingLayer.frame = CGRectMake(0.0f, 0.0f, _pieView.bounds.size.width, _pieView.bounds.size.height);
-            [maskingLayer setContents:(id)[maskingImage CGImage]];
-            [layer setMask:maskingLayer];
-        }
     }
     
     if (_animated) {
