@@ -24,14 +24,14 @@
     [super viewDidLoad];
     self.slices = [NSMutableArray arrayWithCapacity:10];
     
-    for(int i = 0; i < 5; i ++)
+    for(int i = 0; i < 6; i ++)
     {
         NSNumber *one = [NSNumber numberWithInt:rand()%60+20];
         [_slices addObject:one];
     }
     
     [self.pieChartLeft setDataSource:self];
-    [self.pieChartLeft setStartPieAngle:M_PI_2];
+    [self.pieChartLeft setStartPieAngle:M_PI];
     [self.pieChartLeft setAnimationSpeed:1.0];
     [self.pieChartLeft setLabelFont:[UIFont fontWithName:@"DBLCDTempBlack" size:24]];
     [self.pieChartLeft setLabelRadius:160];
@@ -43,17 +43,20 @@
 
     [self.pieChartRight setDelegate:self];
     [self.pieChartRight setDataSource:self];
+    [self.pieChartRight setStartPieAngle:M_PI];
     [self.pieChartRight setPieCenter:CGPointMake(240, 240)];
     [self.pieChartRight setShowPercentage:NO];
     [self.pieChartRight setLabelColor:[UIColor blackColor]];
     [self.pieChartRight setPreSelectedSliceIndex:0];
-    [self.pieChartRight setShowLabel:YES];
-    [self.pieChartRight setAnimated:YES];
+    [self.pieChartRight setSelectedSliceOffsetRadius:20.f];
+    [self.pieChartRight setShowLabel:NO];
+    [self.pieChartRight setAnimated:NO];
 
     [self.percentageLabel.layer setCornerRadius:90];
     
     self.sliceColors =[NSArray arrayWithObjects:
                        [UIColor colorWithRed:246/255.0 green:155/255.0 blue:0/255.0 alpha:1],
+                       [UIColor colorWithRed:276/255.0 green:185/255.0 blue:30/255.0 alpha:1],
                        [UIColor colorWithRed:129/255.0 green:195/255.0 blue:29/255.0 alpha:1],
                        [UIColor colorWithRed:62/255.0 green:173/255.0 blue:219/255.0 alpha:1],
                        [UIColor colorWithRed:229/255.0 green:66/255.0 blue:115/255.0 alpha:1], 
@@ -196,7 +199,7 @@
 
 - (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index
 {
-    if(pieChart == self.pieChartRight) return nil;
+    if(pieChart == self.pieChartLeft) return nil;
     return [self.sliceColors objectAtIndex:(index % self.sliceColors.count)];
 }
 
