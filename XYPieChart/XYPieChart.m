@@ -188,7 +188,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     _selectedSliceIndex = -1;
     _animations = [[NSMutableArray alloc] init];
     
-    _animated = YES;
+    _animated = NO;
     _animationSpeed = 0.5;
     _startPieAngle = M_PI_2*3;
     _selectedSliceStroke = 3.0;
@@ -202,7 +202,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     _labelRadius = _pieRadius/2;
     _selectedSliceOffsetRadius = MAX(10, _pieRadius/10);
     
-    _showLabel = YES;
+    _showLabel = NO;
     _showPercentage = YES;
 }
 

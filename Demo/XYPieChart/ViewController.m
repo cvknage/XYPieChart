@@ -35,21 +35,23 @@
     [self.pieChartLeft setAnimationSpeed:1.0];
     [self.pieChartLeft setLabelFont:[UIFont fontWithName:@"DBLCDTempBlack" size:24]];
     [self.pieChartLeft setLabelRadius:160];
+    [self.pieChartLeft setShowLabel:YES];
     [self.pieChartLeft setShowPercentage:YES];
     [self.pieChartLeft setPieBackgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
     [self.pieChartLeft setPieCenter:CGPointMake(240, 240)];
     [self.pieChartLeft setUserInteractionEnabled:NO];
     [self.pieChartLeft setLabelShadowColor:[UIColor blackColor]];
+    [self.pieChartLeft setAnimated:YES];
 
     [self.pieChartRight setDelegate:self];
     [self.pieChartRight setDataSource:self];
     [self.pieChartRight setStartPieAngle:M_PI];
     [self.pieChartRight setPieCenter:CGPointMake(240, 240)];
+    [self.pieChartRight setShowLabel:YES];
     [self.pieChartRight setShowPercentage:NO];
     [self.pieChartRight setLabelColor:[UIColor blackColor]];
     [self.pieChartRight setPreSelectedSliceIndex:0];
     [self.pieChartRight setSelectedSliceOffsetRadius:20.f];
-    [self.pieChartRight setShowLabel:YES];
     [self.pieChartRight setAnimated:YES];
 
     [self.percentageLabel.layer setCornerRadius:90];
