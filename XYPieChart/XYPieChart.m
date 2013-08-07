@@ -153,27 +153,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     if (self)
     {
         self.backgroundColor = [UIColor clearColor];
-        _pieView = [[UIView alloc] initWithFrame:frame];
-        [_pieView setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:_pieView];
-        
-        _selectedSliceIndex = -1;
-        _animations = [[NSMutableArray alloc] init];
-        
-        _animated = YES;
-        _animationSpeed = 0.5;
-        _startPieAngle = M_PI_2*3;
-        _selectedSliceStroke = 3.0;
-        
-        self.pieRadius = MIN(frame.size.width/2, frame.size.height/2) - 10;
-        self.pieCenter = CGPointMake(frame.size.width/2, frame.size.height/2);
-        self.labelFont = [UIFont boldSystemFontOfSize:MAX((int)self.pieRadius/10, 5)];
-        _labelColor = [UIColor whiteColor];
-        _labelRadius = _pieRadius/2;
-        _selectedSliceOffsetRadius = MAX(10, _pieRadius/10);
-        
-        _showLabel = YES;
-        _showPercentage = YES;
+        [self commonInitialization];
     }
     return self;
 }
@@ -194,30 +174,36 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     self = [super initWithCoder:aDecoder];
     if(self)
     {
-        _pieView = [[UIView alloc] initWithFrame:self.bounds];
-        [_pieView setBackgroundColor:[UIColor clearColor]];
-        [self insertSubview:_pieView atIndex:0];
-        
-        _selectedSliceIndex = -1;
-        _animations = [[NSMutableArray alloc] init];
-        
-        _animated = YES;
-        _animationSpeed = 0.5;
-        _startPieAngle = M_PI_2*3;
-        _selectedSliceStroke = 3.0;
-        
-        CGRect bounds = [[self layer] bounds];
-        self.pieRadius = MIN(bounds.size.width/2, bounds.size.height/2) - 10;
-        self.pieCenter = CGPointMake(bounds.size.width/2, bounds.size.height/2);
-        self.labelFont = [UIFont boldSystemFontOfSize:MAX((int)self.pieRadius/10, 5)];
-        _labelColor = [UIColor whiteColor];
-        _labelRadius = _pieRadius/2;
-        _selectedSliceOffsetRadius = MAX(10, _pieRadius/10);
-        
-        _showLabel = YES;
-        _showPercentage = YES;
+        [self commonInitialization];
     }
     return self;
+}
+
+- (void)commonInitialization
+{
+    _pieView = [[UIView alloc] initWithFrame:self.bounds];
+    [_pieView setBackgroundColor:[UIColor clearColor]];
+    [self insertSubview:_pieView atIndex:0];
+    
+    _selectedSliceIndex = -1;
+    _animations = [[NSMutableArray alloc] init];
+    
+    _animated = YES;
+    _animationSpeed = 0.5;
+    _startPieAngle = M_PI_2*3;
+    _selectedSliceStroke = 3.0;
+    _showPieShadow = YES;
+    
+    CGRect bounds = [[self layer] bounds];
+    self.pieRadius = MIN(bounds.size.width/2, bounds.size.height/2) - 10;
+    self.pieCenter = CGPointMake(bounds.size.width/2, bounds.size.height/2);
+    _labelFont = [UIFont boldSystemFontOfSize:MAX((int)self.pieRadius/10, 5)];
+    _labelColor = [UIColor whiteColor];
+    _labelRadius = _pieRadius/2;
+    _selectedSliceOffsetRadius = MAX(10, _pieRadius/10);
+    
+    _showLabel = YES;
+    _showPercentage = YES;
 }
 
 - (void)setPieCenter:(CGPoint)pieCenter
@@ -465,6 +451,13 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
         
         startToAngle = endToAngle;
+    }
+    
+    if (_showPieShadow) {
+        _pieView.layer.shadowOffset = CGSizeMake(0, 6);
+        _pieView.layer.shadowRadius = 5.0;
+        _pieView.layer.shadowColor = [UIColor blackColor].CGColor;
+        _pieView.layer.shadowOpacity = 0.4;
     }
     
     if (_animated) {

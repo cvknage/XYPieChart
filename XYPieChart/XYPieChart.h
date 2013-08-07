@@ -54,6 +54,7 @@
 @property(nonatomic, assign) CGFloat    animationSpeed;
 @property(nonatomic, assign) CGPoint    pieCenter;
 @property(nonatomic, assign) CGFloat    pieRadius;
+@property(nonatomic, assign) BOOL       showPieShadow;
 @property(nonatomic, assign) BOOL       showLabel;
 @property(nonatomic, strong) UIFont     *labelFont;
 @property(nonatomic, strong) UIColor    *labelColor;
